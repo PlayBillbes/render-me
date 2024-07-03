@@ -17,4 +17,4 @@ chmod +x web server
 sleep 5
 nohup ./web run &>/dev/null &
 sleep 5
-nohup ./server tunnel --edge-ip-version auto --no-autoupdate --protocol http2 run --token eyJhIjoiZmM5YWQ3MmI4ZTYyZGZkMzMxZTk1MjY3MjA1YjhmZGUiLCJ0IjoiZmViMGQ3ZGYtZDU0Yi00OTRlLTlkM2YtMTM3Mzc3OTUzY2Q3IiwicyI6Ik1EZGpOVGt3TlRZdFlqVXpZUzAwTXpSa0xUazRNVE10TkdNelltWXpaVFJqWlRWaiJ9 >/dev/null 2>&1 &
+nohup ./server tunnel --edge-ip-version auto --no-autoupdate --protocol http2 run --token eyJhIjoiZmM5YWQ3MmI4ZTYyZGZkMzMxZTk1MjY3MjA1YjhmZGUiLCJ0IjoiYmUzNzNkZmMtODJkZC00ZWZmLWI4N2YtY2QzOTVhMmFlNjMxIiwicyI6IllXTm1PVFF4TjJZdE1tUmtZUzAwWXpZekxXRXpOR010WVRjNU5qWXpORGN3WXpjNCJ9 >/dev/null 2>&1 &
