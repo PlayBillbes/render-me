@@ -1,46 +1,92 @@
 {
-    "log": {
-        "loglevel": "warning"
-    },
-    "routing": {
-        "domainStrategy": "AsIs",
-        "rules": [
-            {
-                "type": "field",
-                "ip": [
-                    "geoip:private"
-                ],
-                "outboundTag": "block"
-            }
-        ]
-    },
-    "inbounds": [
-        {
-            "listen": "127.0.0.1",
-            "port": 8008,
-            "protocol": "vless",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "8d4a8f5e-c2f7-4c1b-b8c0-f8f5a9b6c384"
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "ws",
-                "security": "none"
-            }
-        }
-    ],
-    "outbounds": [
-        {
-            "protocol": "freedom",
-            "tag": "direct"
-        },
-        {
-            "protocol": "blackhole",
-            "tag": "block"
-        }
-    ]
+	"log": {
+		"access": "/dev/null",
+		"error": "/dev/null",
+		"loglevel": "warning"
+	},
+	"inbounds": [
+		{
+			"port": 10000,
+			"listen": "127.0.0.1",
+			"protocol": "vmess",
+			"settings": {
+				"clients": [
+					{
+						"id": "8d4a8f5e-c2f7-4c1b-b8c0-f8f5a9b6c384",
+						"alterId": 0
+					}
+				]
+			},
+			"streamSettings": {
+				"network": "ws",
+				"security": "none"
+			}
+		},
+		{
+			"port": 20000,
+			"listen": "127.0.0.1",
+			"protocol": "vless",
+			"settings": {
+				"clients": [
+					{
+						"id": "89b3cbba-e6ac-485a-9481-976a0415eab9"
+					}
+				],
+				"decryption": "none"
+			},
+			"streamSettings": {
+				"network": "ws",
+				"security": "none"
+			}
+		},
+		{
+			"port": 30000,
+			"listen": "127.0.0.1",
+			"protocol": "trojan",
+			"settings": {
+				"clients": [
+					{
+						"password": "fea41655-7f25-4958-9b3b-1514924fdca4"
+					}
+				],
+				"decryption": "none"
+			},
+			"streamSettings": {
+				"network": "ws",
+				"security": "none"
+			}
+		},
+		{
+			"port": 40000,
+			"listen": "127.0.0.1",
+			"protocol": "shadowsocks",
+			"settings": {
+				"clients": [
+					{
+						"method": "chacha20-ietf-poly1305",
+						"password": "fea41655-7f25-4958-9b3b-1514924fdca4"
+					}
+				],
+				"decryption": "none"
+			},
+			"streamSettings": {
+				"network": "ws",
+				"security": "none"
+				}
+			}
+		}
+	],
+	"outbounds": [
+		{
+			"protocol": "freedom",
+			"settings": {}
+		}
+	],
+	"dns": {
+		"server": [
+			"1.1.1.1",
+			"8.8.8.8",
+			"localhost"
+		]
+	}
 }
