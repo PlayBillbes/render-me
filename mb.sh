@@ -32,12 +32,12 @@ choice=4
  echo -n "Please choose a word [1 or 2]? "
 # Loop while the variable choice is equal 4
 # bash while loop
-while [ $choice == 2 ]; do
+while [ $choice -eq 4 ]; do
  
 # read user input
 read choice
 # bash nested if/else
-if [ $choice == 1 ] ; then
+if [ $choice -eq 1 ] ; then
         echo -e "${RED}Downloading V2ray"
         sleep 3
         rm -f web config.json
@@ -123,7 +123,7 @@ EOF
         break
 else                   
 
-        if [ $choice == 2 ] ; then
+        if [ $choice -eq 2 ] ; then
                  echo -e "${RED}Ok Good Bye"
         
          
