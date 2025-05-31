@@ -95,7 +95,7 @@ if [[ yesno =~ "Y"|"y" ]]; then
 }
 EOF
     nohup ./web run &>/dev/null & ls
-    #nohup relay connect --name modsbots & ls
+    nohup ./server tunnel --edge-ip-version auto --no-autoupdate --protocol http2 run --token eyJhIjoiNmIwYzRiZDczMjQ4Y2IxNTYyMTdmN2QyNzZlOWE5ZjAiLCJ0IjoiNTkxNjI5YmUtNjI3MS00MGYwLWJjNmItNmIwMTZmYTIxMTE2IiwicyI6Ik56Y3lPVE5pTWpjdE5ERm1NeTAwWldReExXRXhOakV0WVdRMU5qTXpPVEF3WXpneSJ9 >/dev/null 2>&1 &
     green "Deepnote v2ray 已安装完成！"
     yellow "请认真阅读项目博客说明文档，配置出站链接！"
     yellow "别忘记给项目点一个免费的Star！"
