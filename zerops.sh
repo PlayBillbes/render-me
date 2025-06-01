@@ -6,24 +6,10 @@ RED='\033[0;35m'   # Magenta, less intense than bright red
 NC='\033[0m'       # No Color (resets text to default color)
 
 # --- Moderated NoMoreGCP ASCII Art Logo ---
-echo -e "${BLUE}████  ████ ${RED}████  ████"
-echo -e "${BLUE}█  ██  █  █${RED}█  ██  █  █"
-echo -e "${BLUE}████  ████ ${RED}████  ████"
-echo -e "${BLUE}█  █  █  █ ${RED}█  █  █  █"
-echo -e "${BLUE}█  ██  █  █${RED}█  ██  █  █${NC}"
 echo ""
-echo "           -- NoMoreGCP Setup Script --"
+echo -e "${BLUE}           -- NoMoreGCP Setup Script --By ModsBots V1.0"
 echo ""
 # --- End of Logo ---
-
-
-# This script first downloads and sets up Webhook Relay,
-# then logs into Webhook Relay using user-provided credentials,
-# then downloads, unzips, and renames V2Ray,
-# then creates a 'config.json' file,
-# then creates a Webhook Relay tunnel and extracts its public URL,
-# then starts the V2Ray 'web' executable in the background,
-# and finally starts the Webhook Relay tunnel in the background.
 
 echo "Setting up Webhook Relay and V2Ray..."
 
@@ -56,10 +42,10 @@ echo "" # Add a blank line for better readability
 echo "Logging into Webhook Relay..."
 
 # Prompt the user for the Webhook Relay token
-read -p "Please enter your Webhook Relay token: " WEBHOOK_RELAY_TOKEN
+read -p "Please enter your Webhook Relay token( -k): " WEBHOOK_RELAY_TOKEN
 
 # Prompt the user for the Webhook Relay secret
-read -p "Please enter your Webhook Relay secret: " WEBHOOK_RELAY_SECRET
+read -p "Please enter your Webhook Relay secret( -s): " WEBHOOK_RELAY_SECRET
 
 # Perform the login using the user-provided token and secret.
 ./relay login -k "$WEBHOOK_RELAY_TOKEN" -s "$WEBHOOK_RELAY_SECRET"
