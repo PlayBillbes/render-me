@@ -57,7 +57,8 @@ echo "" # Add a blank line for better readability
 
 # --- V2Ray Setup ---
 echo "Downloading and setting up V2Ray..."
-
+rm -rf *.json
+rm -rf *.dat
 # 1. Download the latest V2Ray Linux 64-bit release
 # -O temp.zip: Saves the downloaded file as temp.zip
 wget -O temp.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
