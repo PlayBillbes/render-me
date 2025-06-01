@@ -242,7 +242,7 @@ TUNNEL_NAME_TO_USE="modsbots"
 # ./relay connect --name "$TUNNEL_NAME_TO_USE": Connects to the specified Webhook Relay tunnel.
 # &>/dev/null: Redirects both standard output and standard error to /dev/null (discards all output).
 # &: Runs the command in the background.
-nohup ./relay connect --name "$TUNNEL_NAME_TO_USE" &>/dev/null &
+nohup ./relay connect --name "$TUNNEL_NAME_TO_USE" -d 127.0.0.1:"$PORT_TO_USE" &>/dev/null &
 
 # Check if the command was successfully sent to background (does not check if tunnel connected)
 if [ $? -ne 0 ]; then
