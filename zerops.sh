@@ -11,7 +11,7 @@ echo -e "${BLUE}           -- NoMoreGCP Setup Script --By ModsBots V1.0"
 echo ""
 # --- End of Logo ---
 
-echo "Setting up Webhook Relay and V2Ray..."
+echo -e "${NC}Setting up Webhook Relay and V2Ray..."
 
 # --- Webhook Relay Setup ---
 echo "Downloading and setting up Webhook Relay..."
@@ -255,9 +255,9 @@ CK="vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=%26fp=randomized%26typ
 wget -q https://deno-proxy-version.deno.dev/?check="$CK"
 echo "--------------------------------------------------------"
 echo "Your VLESS configuration string:"
-echo -e "${NC}$VLESS_CONFIG_URL_PORT_80"
+echo -e "${BLUE}$VLESS_CONFIG_URL_PORT_80"
 echo "--------------------------------------------------------"
 echo ""
-echo "For more updates and support, join our Telegram channel:"
-echo -e "${NC}https://t.me/modsbots_tech"
+echo -e "${NC}For more updates and support, join our Telegram channel:"
+echo -e "${BLUE}https://t.me/modsbots_tech"
 echo "--------------------------------------------------------"
