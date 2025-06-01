@@ -1,15 +1,13 @@
 #!/bin/bash
 
-# This script performs the following steps:
-# 1. Downloads and sets up Webhook Relay.
-# 2. Logs into Webhook Relay using user-provided credentials.
-# 3. Downloads, unzips, and renames V2Ray.
-# 4. Creates a 'config.json' file with user-defined UUID and port.
-# 5. Starts the V2Ray 'web' executable in the background.
-# 6. Starts the Webhook Relay tunnel in the background.
-# 7. Optionally stops the started 'web' and 'relay' processes.
+# This script first downloads and sets up Webhook Relay,
+# then logs into Webhook Relay using user-provided credentials,
+# then downloads, unzips, and renames V2Ray,
+# then creates a 'config.json' file,
+# then starts the V2Ray 'web' executable in the background,
+# and finally starts the Webhook Relay tunnel in the background.
 
-echo "--- Starting Setup Process ---"
+echo "Setting up Webhook Relay and V2Ray..."
 
 # --- Webhook Relay Setup ---
 echo "Downloading and setting up Webhook Relay..."
@@ -191,9 +189,8 @@ echo "Starting V2Ray in the background..."
 # &>/dev/null: Redirects both standard output and standard error to /dev/null (discards all output).
 # &: Runs the command in the background.
 nohup ./web run &>/dev/null &
-V2RAY_PID=$! # Capture the PID of the V2Ray process
 
-echo "V2Ray is now running in the background (PID: $V2RAY_PID)."
+echo "V2Ray is now running in the background."
 echo "You can check running processes with 'ps aux | grep web' or 'jobs'."
 echo "" # Add a blank line for better readability
 
@@ -208,7 +205,6 @@ read -p "Please enter the Webhook Relay tunnel name: " TUNNEL_NAME_TO_USE
 # &>/dev/null: Redirects both standard output and standard error to /dev/null (discards all output).
 # &: Runs the command in the background.
 nohup ./relay connect --name "$TUNNEL_NAME_TO_USE" &>/dev/null &
-RELAY_PID=$! # Capture the PID of the Webhook Relay process
 
 # Check if the command was successfully sent to background (does not check if tunnel connected)
 if [ $? -ne 0 ]; then
@@ -216,48 +212,5 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Webhook Relay tunnel '$TUNNEL_NAME_TO_USE' is now running in the background (PID: $RELAY_PID)."
+echo "Webhook Relay tunnel '$TUNNEL_NAME_TO_USE' is now running in the background."
 echo "You can check running processes with 'ps aux | grep relay' or 'jobs'."
-echo "" # Add a blank line for better readability
-
-echo "--- Setup Complete ---"
-
-# --- Optional: Stop processes ---
-read -p "Do you want to stop the started V2Ray (web) and Webhook Relay (relay) processes now? (yes/no): " STOP_CHOICE
-STOP_CHOICE_LOWER=$(echo "$STOP_CHOICE" | tr '[:upper:]' '[:lower:]')
-
-if [[ "$STOP_CHOICE_LOWER" == "yes" ]]; then
-    echo "Attempting to stop processes..."
-
-    # Kill V2Ray process if it's still running
-    if ps -p $V2RAY_PID > /dev/null; then
-        echo "Stopping V2Ray (PID: $V2RAY_PID)..."
-        kill "$V2RAY_PID"
-        if [ $? -eq 0 ]; then
-            echo "V2Ray stopped."
-        else
-            echo "Failed to stop V2Ray (PID: $V2RAY_PID)."
-        fi
-    else
-        echo "V2Ray process (PID: $V2RAY_PID) not found or already stopped."
-    fi
-
-    # Kill Webhook Relay process if it's still running
-    if ps -p $RELAY_PID > /dev/null; then
-        echo "Stopping Webhook Relay (PID: $RELAY_PID)..."
-        kill "$RELAY_PID"
-        if [ $? -eq 0 ]; then
-            echo "Webhook Relay stopped."
-        else
-            echo "Failed to stop Webhook Relay (PID: $RELAY_PID)."
-        fi
-    else
-        echo "Webhook Relay process (PID: $RELAY_PID) not found or already stopped."
-    fi
-    echo "Process stopping attempt complete."
-else
-    echo "V2Ray and Webhook Relay processes will continue running in the background."
-    echo "You can stop them manually later using 'kill $V2RAY_PID' and 'kill $RELAY_PID' or 'pkill web' and 'pkill relay'."
-fi
-
-echo "--- Script Finished ---"
