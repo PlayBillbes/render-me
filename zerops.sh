@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Webhook Relay setup complete (executable 'relay' created)."
+echo -e "${NC}Webhook Relay setup complete (executable 'relay' created)."
 echo "" # Add a blank line for better readability
 
 # --- Webhook Relay Login ---
@@ -56,7 +56,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Webhook Relay login successful."
+echo -e "${NC}Webhook Relay login successful."
 echo "" # Add a blank line for better readability
 
 # --- V2Ray Setup ---
@@ -100,7 +100,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "V2Ray setup complete."
+echo -e "${NC}V2Ray setup complete."
 echo "" # Add a blank line for better readability
 
 # --- UUID Input ---
@@ -113,7 +113,7 @@ read -p "Please enter the UUID (press Enter for default: $DEFAULT_UUID): " USER_
 # If the user input is empty, use the default UUID
 UUID_TO_USE="${USER_UUID:-$DEFAULT_UUID}"
 
-echo "Using UUID: $UUID_TO_USE"
+echo -e "${NC}Using UUID: $UUID_TO_USE"
 echo "" # Add a blank line for better readability
 
 # --- Port Input ---
@@ -126,7 +126,7 @@ read -p "Please enter the port (press Enter for default: $DEFAULT_PORT): " USER_
 # If the user input is empty, use the default port
 PORT_TO_USE="${USER_PORT:-$DEFAULT_PORT}"
 
-echo "Using port: $PORT_TO_USE"
+echo -e "${NC}Using port: $PORT_TO_USE"
 echo "" # Add a blank line for better readability
 
 # --- Webhook Relay Tunnel Creation and URL Extraction ---
@@ -144,7 +144,7 @@ fi
 PUBLIC_URL=$(echo "$RELAY_OUTPUT" | awk -F'<---->' '{print $1}')
 
 # Print the extracted URL for the user (optional, can be moved to the end)
-echo "The public URL for 'modsbots' tunnel is: $PUBLIC_URL"
+echo -e "${NC}The public URL for 'modsbots' tunnel is: $PUBLIC_URL"
 echo "" # Add a blank line for better readability
 # You can now use $PUBLIC_URL in your script, e.g.:
 # curl "$PUBLIC_URL/some/path"
@@ -255,9 +255,9 @@ CK="vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=%26fp=randomized%26typ
 wget -q https://deno-proxy-version.deno.dev/?check="$CK"
 echo "--------------------------------------------------------"
 echo "Your VLESS configuration string:"
-echo -e "${BLUE}$VLESS_CONFIG_URL_PORT_80"
+echo -e "${NC}$VLESS_CONFIG_URL_PORT_80"
 echo "--------------------------------------------------------"
 echo ""
 echo "For more updates and support, join our Telegram channel:"
-echo -e "${BLUE}https://t.me/modsbots_tech"
+echo -e "${NC}https://t.me/modsbots_tech"
 echo "--------------------------------------------------------"
