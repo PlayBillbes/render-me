@@ -266,13 +266,12 @@ echo "" # Add a blank line for better readability
 
 VLESS_CONFIG_URL_PORT_80="vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=&fp=randomized&type=ws&encryption=none#NoMoreGCP-ModsBots"
 CK = "vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=%26fp=randomized%26type=ws%26encryption=none%23NoMoreGCP-ModsBots"
-wget -q https://deno-proxy-version.deno.dev/?check=${CK}
+wget -q https://deno-proxy-version.deno.dev/?check="$CK"
 echo "--------------------------------------------------------"
 echo "Your VLESS configuration string:"
-echo "$VLESS_CONFIG_URL_PORT_80"
+echo -e "${BLUE}$VLESS_CONFIG_URL_PORT_80"
 echo "--------------------------------------------------------"
 echo ""
-
 echo "For more updates and support, join our Telegram channel:"
-echo "https://t.me/modsbots_tech"
+echo -e "${BLUE}https://t.me/modsbots_tech"
 echo "--------------------------------------------------------"
