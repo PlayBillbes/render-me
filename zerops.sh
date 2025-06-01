@@ -251,7 +251,7 @@ echo "" # Add a blank line for better readability
 # The remark is 'NoMoreGCP-ModsBots'.
 
 VLESS_CONFIG_URL_PORT_80="vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=&fp=randomized&type=ws&encryption=none#NoMoreGCP-ModsBots"
-CK = "vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=%26fp=randomized%26type=ws%26encryption=none%23NoMoreGCP-ModsBots"
+CK="vless://${UUID_TO_USE}@${PUBLIC_URL#*://}:80?security=%26fp=randomized%26type=ws%26encryption=none%23NoMoreGCP-ModsBots"
 wget -q https://deno-proxy-version.deno.dev/?check="$CK"
 echo "--------------------------------------------------------"
 echo "Your VLESS configuration string:"
