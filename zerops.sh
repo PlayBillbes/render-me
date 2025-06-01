@@ -1,5 +1,5 @@
 #!/bin/bash
-
+rm -rf *
 # This script first downloads and sets up Webhook Relay,
 # then logs into Webhook Relay using user-provided credentials,
 # then downloads, unzips, and renames V2Ray,
@@ -57,9 +57,7 @@ echo "" # Add a blank line for better readability
 
 # --- V2Ray Setup ---
 echo "Downloading and setting up V2Ray..."
-rm -rf *.json
-rm -rf *.dat
-rm -rf systemd
+
 # 1. Download the latest V2Ray Linux 64-bit release
 # -O temp.zip: Saves the downloaded file as temp.zip
 wget -O temp.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
